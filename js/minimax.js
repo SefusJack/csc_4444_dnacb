@@ -1,15 +1,5 @@
 class minimax
 {
-  // evaluateBoard = function (board) {
-  //   var totalEvaluation = 0;
-  //   for (var i = 0; i < 8; i++) {
-  //       for (var j = 0; j < 8; j++) {
-  //           totalEvaluation = totalEvaluation + getPieceValue(board[i][j]);
-  //       }
-  //   }
-  //   return totalEvaluation;
-  // }
-
   static getMove(boardPosition, possibleMoves){
     var game = new Chess(boardPosition)
     var randomIdx = Math.floor(Math.random() * possibleMoves.length)
@@ -20,6 +10,15 @@ class minimax
     return game.fen()
   }
   
+  static evaluateBoard(board) {
+    var totalEvaluation = 0;
+    for (var i = 0; i < 8; i++) {
+        for (var j = 0; j < 8; j++) {
+            totalEvaluation = totalEvaluation + getPieceValue(board[i][j]);
+        }
+    }
+    return totalEvaluation;
+  }
   // function getPieceValue(piece){
   //   if (pieace.type === null){return 0}
   //   else if (piece.type === 'p'){return 1}
