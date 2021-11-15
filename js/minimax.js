@@ -1,9 +1,21 @@
 class minimax
 {
+  // evaluateBoard = function (board) {
+  //   var totalEvaluation = 0;
+  //   for (var i = 0; i < 8; i++) {
+  //       for (var j = 0; j < 8; j++) {
+  //           totalEvaluation = totalEvaluation + getPieceValue(board[i][j]);
+  //       }
+  //   }
+  //   return totalEvaluation;
+  // }
+
   static getMove(boardPosition, possibleMoves){
     var game = new Chess(boardPosition)
     var randomIdx = Math.floor(Math.random() * possibleMoves.length)
     console.log(possibleMoves)
+    console.log(evaluateBoard(game))
+    console.log('***************************************************')
     game.move(possibleMoves[randomIdx])
     return game.fen()
   }
@@ -16,5 +28,4 @@ class minimax
   //   else if (piece.type === 'q'){return 9}
   //   else if (piece.type === 'k'){return 100}
   // }
-
 }
