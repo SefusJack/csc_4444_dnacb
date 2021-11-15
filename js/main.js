@@ -44,7 +44,7 @@ function makeMove(){
 	//game over
 	if(possibleMoves.length === 0)
 		return
-	var result = random.getMove(boardPosition, possibleMoves)
+	var result = minimax.getMove(boardPosition, possibleMoves)
 	console.log(result)
 	game.load(result)
 }
