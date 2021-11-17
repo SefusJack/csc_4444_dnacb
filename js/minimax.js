@@ -56,15 +56,19 @@ var getPieceValue = function (piece) {
   return piece.color === 'w' ? absoluteValue : -absoluteValue;
 }
 
-var evaluateMove = function(move, boardValues)
+var evaluateMoves = function(move, boardValues)
 {
   for(var i = 0; i < move.length; i++)
   {
-    //if()
-    //else 
+    //if(piece = knight)
+    //{give the legal moves a knight can make enter into an array}
+    //elif(piece = pawn), etc
+    //if
     //{
-      //find the location of the move in board values; return the value that it gets from the piece taken
-      // plus the position value matrix
+      //given the array of possible moves for the given piece, 
+      //find the board values; add the board values plus the location of that piece
+      //in the position matrix; if the value is bigger than max value,
+      //set it as the new max value
     //}
   }
 };
