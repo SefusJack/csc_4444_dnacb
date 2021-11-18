@@ -20,6 +20,7 @@ function getMinimaxMove(boardPosition, possibleMoves){
     return game.fen()
   }
 
+//Returns board value matrix
 var evaluateBoard = function (board, boardValues){
   var totalEvaluation = 0;
     for (var i = 0; i < 8; i++) {
@@ -31,6 +32,7 @@ var evaluateBoard = function (board, boardValues){
     return totalEvaluation;
 }
 
+//returns individual piece value
 var getPieceValue = function (piece) {
   if (piece === null) {
       return 0;
@@ -56,11 +58,29 @@ var getPieceValue = function (piece) {
   return piece.color === 'w' ? absoluteValue : -absoluteValue;
 }
 
-var evaluateMoves = function(move, boardValues)
-{
-  for(var i = 0; i < move.length; i++)
+//takes possible moves in game and the value board matrix to return what each move
+//is valued as
+var evaluateMoves = function(game, boardValues)
+{ 
+  var possibleMoves = game.moves();
+  for(var i = 0; i < possibleMoves.length; i++)
   {
-    //if(piece = knight)
+    targetMove = possibleMoves[i]; 
+
+    if((targetMove[0] === 'N') || (targetMove[0] === 'B') || (targetMove[0] === 'Q') || (targetMove[0] === 'K') || (targetMove[0] === 'R'))
+    { 
+      column = possibleMoves[i][1];
+      row = possibleMoves[i][2];
+    }
+    else
+    {
+      column = possibleMoves[i][0];
+      row = possibleMoves[i][1];
+    }
+    
+    //movesValueArray[] = boardValues[column][row] 
+
+    //if + in move,
     //{give the legal moves a knight can make enter into an array}
     //elif(piece = pawn), etc
     //if
