@@ -18,8 +18,8 @@ function getMinimaxMove(boardPosition, possibleMoves){
     valuedMoves = evaluateMoves(game, boardValues)
 
     console.log("Board Value Matrix: ", boardValues)
-    console.log("Possible moves: ", possibleMoves)
-    console.log("Converted value moves: \n", valuedMoves)
+    console.log("Possible moves for black: ", possibleMoves)
+    console.log("Converted value moves for black: \n", valuedMoves)
     
     game.move(possibleMoves[randomIdx])
     return game.fen()
@@ -96,8 +96,6 @@ var evaluateMoves = function(game, boardValues)
       index = 0;
     }
 
-    console.log("Board move: ", possibleMoves[i][index], possibleMoves[i][index+1])
-
     row = rankDict[possibleMoves[i][index]];
     column = invertDict[parseInt(possibleMoves[i][index+1]) - 1];
     if(column == undefined)
@@ -105,7 +103,7 @@ var evaluateMoves = function(game, boardValues)
     if(row == null)
       continue;
 
-    console.log("Matrix move: ", column, row)
+    console.log("Board move: ", possibleMoves[i][index], possibleMoves[i][index+1], ", ", "Matrix move: ", column, row)
     newMoves.push(boardValues[column][row]);
   }
   return newMoves;
