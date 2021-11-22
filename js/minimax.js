@@ -20,6 +20,7 @@ function getMinimaxMove(boardPosition, possibleMoves){
     console.log("New moves: ")
     console.log(valuedMoves)
     console.log(boardValues)
+    squarePressure(game)
     
     game.move(possibleMoves[randomIdx])
     return game.fen()
@@ -114,9 +115,10 @@ var evaluateMoves = function(game, boardValues)
 //function that takes a game board and calculates the pressure applied to each square on the board
 //returns a value matrix where positive squares indicate white advantage and negative squares
 //indicate black advantage
-function safeSquares(game)
+function squarePressure(game)
 {
   //2D 8x8 array of form [[{type: 'r', color: 'b'}, ...]
   board = game.board();
+  print("Board format: ", board[0])
   //if piece value is negative, invert values for pawn
 };
