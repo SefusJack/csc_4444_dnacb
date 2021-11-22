@@ -1,3 +1,5 @@
+var rankDict = { 'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7 }
+
 function getMinimaxMove(boardPosition, possibleMoves){
     var game = new Chess(boardPosition)
     var randomIdx = Math.floor(Math.random() * possibleMoves.length)
@@ -9,13 +11,16 @@ function getMinimaxMove(boardPosition, possibleMoves){
                        [0, 0, 0, 0, 0, 0, 0, 0], 
                        [0, 0, 0, 0, 0, 0, 0, 0], 
                        [0, 0, 0, 0, 0, 0, 0, 0]];
-    var rankDict = { 'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7 }
-    var moveL = '1ab'
-    console.log(moveL.length)
-    console.log(possibleMoves)
-    console.log(evaluateBoard(game.board(), boardValues))
-    console.log(boardValues[0])
 
+    boardEvaluation = evaluateBoard(game.board(), boardValues)
+    console.log(possibleMoves)
+
+    var valuedMoves = []
+    valuedMoves = evaluateMoves(game, boardValues)
+    console.log("New moves: ")
+    console.log(valuedMoves)
+    console.log(boardValues)
+    
     game.move(possibleMoves[randomIdx])
     return game.fen()
   }
@@ -23,8 +28,8 @@ function getMinimaxMove(boardPosition, possibleMoves){
 //Returns board value matrix
 var evaluateBoard = function (board, boardValues){
   var totalEvaluation = 0;
-    for (var i = 0; i < 8; i++) {
-        for (var j = 0; j < 8; j++) {
+    for (var i = 7; i >= 0; i--) {
+        for (var j = 7; j >= 0; j--) {
           totalEvaluation = totalEvaluation + getPieceValue(board[i][j]);
           boardValues[i][j] = getPieceValue(board[i][j]);
         }
@@ -58,37 +63,48 @@ var getPieceValue = function (piece) {
   return piece.color === 'w' ? absoluteValue : -absoluteValue;
 }
 
-//takes possible moves in game and the value board matrix to return what each move
+//takes possible moves in game and the value board matrix and position value matrix to return what each move
 //is valued as
 var evaluateMoves = function(game, boardValues)
 { 
   var possibleMoves = game.moves();
+  var newMoves = []
+  var invertDict = {0 : 7, 1:6, 2:5, 3:4, 4:3, 5:2, 6:1, 7:0 }
   for(var i = 0; i < possibleMoves.length; i++)
   {
-    targetMove = possibleMoves[i]; 
+    var targetMove = possibleMoves[i];
+    var moveLength = targetMove.length;
+    var index = 0;
 
-    if((targetMove[0] === 'N') || (targetMove[0] === 'B') || (targetMove[0] === 'Q') || (targetMove[0] === 'K') || (targetMove[0] === 'R'))
+    if(moveLength == 3)
     { 
-      column = possibleMoves[i][1];
-      row = possibleMoves[i][2];
+      index+=1;
     }
-    else
+    else if(moveLength == 4)
     {
-      column = possibleMoves[i][0];
-      row = possibleMoves[i][1];
+      index+=2;
     }
-    
-    //movesValueArray[] = boardValues[column][row] 
 
-    //if + in move,
-    //{give the legal moves a knight can make enter into an array}
-    //elif(piece = pawn), etc
-    //if
-    //{
-      //given the array of possible moves for the given piece, 
-      //find the board values; add the board values plus the location of that piece
-      //in the position matrix; if the value is bigger than max value,
-      //set it as the new max value
-    //}
+    console.log(possibleMoves[i][index], possibleMoves[i][index+1])
+
+    row = rankDict[possibleMoves[i][index]];
+    column = invertDict[parseInt(possibleMoves[i][index+1]) - 1];
+    if(column == undefined)
+      continue;
+    if(row == null)
+      continue;
+
+    console.log(column, row)
+    newMoves.push(boardValues[column][row]);
   }
+  return newMoves;
+};
+
+//function that takes a game board and calculates the pressure applied to each square on the board
+//returns a value matrix where positive squares indicate white advantage and negative squares
+//indicate black advantage
+function safeSquares(game)
+{
+
+  //if piece value is negative, invert values for pawn
 };
