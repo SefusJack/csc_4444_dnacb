@@ -64,7 +64,8 @@ var getPieceValue = function (piece) {
 }
 
 //takes possible moves in game and the value board matrix and position value matrix to return what each move
-//is valued as
+//is valued as; returns the array of possible moves as an array of values
+//i.e. instead of ['Ne6', 'Na6', ...], changes to ['-30', '0', ...]
 var evaluateMoves = function(game, boardValues)
 { 
   var possibleMoves = game.moves();
@@ -72,17 +73,27 @@ var evaluateMoves = function(game, boardValues)
   var invertDict = {0 : 7, 1:6, 2:5, 3:4, 4:3, 5:2, 6:1, 7:0 }
   for(var i = 0; i < possibleMoves.length; i++)
   {
+
     var targetMove = possibleMoves[i];
     var moveLength = targetMove.length;
     var index = 0;
 
-    if(moveLength == 3)
+    if(moveLength == 3 && targetMove.includes('+'))
     { 
+      index = 0;
+    }
+    else if((moveLength == 4 && targetMove.includes('+')) || moveLength == 3)
+    {
       index+=1;
     }
-    else if(moveLength == 4)
+    else if((moveLength == 4 && targetMove.includes('x')) || moveLength == 5)
     {
       index+=2;
+    }
+    //*********************************** */
+    else if(targetMove.includes('O'))
+    {
+      index = 0;
     }
 
     console.log(possibleMoves[i][index], possibleMoves[i][index+1])
@@ -105,6 +116,7 @@ var evaluateMoves = function(game, boardValues)
 //indicate black advantage
 function safeSquares(game)
 {
-
+  //2D 8x8 array of form [[{type: 'r', color: 'b'}, ...]
+  board = game.board();
   //if piece value is negative, invert values for pawn
 };
