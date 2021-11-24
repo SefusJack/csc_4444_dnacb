@@ -1,3 +1,5 @@
+import { depthFirstSearch } from './depthFirstSearch.js';
+
 var rankDict = { 'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7 }
 
 function getMinimaxMove(boardPosition, possibleMoves){
@@ -92,7 +94,7 @@ var evaluateMoves = function(game, boardValues)
     {
       index+=2;
     }
-    //*********************************** */
+    //Castles implementation
     else if(targetMove.includes('O'))
     {
       index = 0;
@@ -120,3 +122,5 @@ function safeSquares(game)
   board = game.board();
   //if piece value is negative, invert values for pawn
 };
+
+export {evaluateMoves};
