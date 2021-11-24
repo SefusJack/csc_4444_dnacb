@@ -82,10 +82,12 @@ var evaluateMoves = function(game, boardValues)
     { 
       index = 0;
     }
+    //if of form b3+
     else if((moveLength == 4 && targetMove.includes('+')) || moveLength == 3)
     {
       index+=1;
     }
+    //if of form Bxd3 or Bxd3+
     else if((moveLength == 4 && targetMove.includes('x')) || moveLength == 5)
     {
       index+=2;
