@@ -1,4 +1,3 @@
-import { depthFirstSearch } from './depthFirstSearch.js';
 
 var rankDict = { 'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7 }
 
@@ -19,11 +18,25 @@ function getMinimaxMove(boardPosition, possibleMoves){
     var valuedMoves = []
     valuedMoves = evaluateMoves(game, boardValues)
 
-    console.log("Board Value Matrix: ", boardValues)
-    console.log("Possible moves for black: ", possibleMoves)
-    console.log("Converted value moves for black: \n", valuedMoves)
-    
-    game.move(possibleMoves[randomIdx])
+    // console.log("Board Value Matrix: ", boardValues)
+    // console.log("Possible moves for black: ", possibleMoves)
+    // console.log("Converted value moves for black: \n", valuedMoves)
+
+    var bestMove = depthFirstSearch(game, 2, false);
+    if(bestMove[1] < 0)
+    {
+      console.log(bestMove[1], possibleMoves[bestMove[1]])
+      game.move(possibleMoves[0])
+    }
+    else
+    {
+      console.log(bestMove[1], possibleMoves[bestMove[1]])
+      game.move(possibleMoves[bestMove[1]])
+    }
+
+    console.log(possibleMoves)
+    console.log("BEST MOVE DETERMINED: ", bestMove[0])
+    console.log("BEST MOVE INDEX: ", bestMove[1])
     return game.fen()
   }
 
@@ -107,7 +120,7 @@ var evaluateMoves = function(game, boardValues)
     if(row == null)
       continue;
 
-    console.log("Board move: ", possibleMoves[i][index], possibleMoves[i][index+1], ", ", "Matrix move: ", column, row)
+    // console.log("Board move: ", possibleMoves[i][index], possibleMoves[i][index+1], ", ", "Matrix move: ", column, row, "Corresponding board value: ", boardValues[column][row])
     newMoves.push(boardValues[column][row]);
   }
   return newMoves;
@@ -122,5 +135,3 @@ function safeSquares(game)
   board = game.board();
   //if piece value is negative, invert values for pawn
 };
-
-export {evaluateMoves};
