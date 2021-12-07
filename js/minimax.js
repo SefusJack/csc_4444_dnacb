@@ -3,7 +3,6 @@ var rankDict = { 'a':0,'b':1,'c':2,'d':3,'e':4,'f':5,'g':6,'h':7 }
 
 function getMinimaxMove(boardPosition, possibleMoves){
     var game = new Chess(boardPosition)
-    var randomIdx = Math.floor(Math.random() * possibleMoves.length)
     var boardValues = [[0, 0, 0, 0, 0, 0, 0, 0], 
                        [0, 0, 0, 0, 0, 0, 0, 0], 
                        [0, 0, 0, 0, 0, 0, 0, 0], 
@@ -21,24 +20,43 @@ function getMinimaxMove(boardPosition, possibleMoves){
     // console.log("Board Value Matrix: ", boardValues)
     // console.log("Possible moves for black: ", possibleMoves)
     // console.log("Converted value moves for black: \n", valuedMoves)
-
-    var bestMove = depthFirstSearch(game, 2, false);
-
-    if(bestMove[1] < 0)
+    var bestMove
+    if(algorithm == 1)
     {
-      console.log(bestMove[1], possibleMoves[bestMove[1]])
-      game.move(possibleMoves[0])
-    }
-    else
-    {
-      console.log(bestMove[1], possibleMoves[bestMove[1]])
-      game.move(possibleMoves[bestMove[1]])
-    }
+      bestMove = breadthFirstSearch(game, 2, false);
+      if(bestMove[1] < 0)
+      {
+        //console.log(bestMove[1], possibleMoves[bestMove[1]])
+        game.move(possibleMoves[0])
+      }
+      else
+      {
+        //console.log(bestMove[1], possibleMoves[bestMove[1]])
+        game.move(possibleMoves[bestMove[1]])
+      }
 
-    console.log(possibleMoves)
-    console.log("BEST MOVE DETERMINED: ", bestMove[0])
-    console.log("BEST MOVE INDEX: ", bestMove[1])
-    return game.fen()
+      //console.log(possibleMoves)
+      //console.log("BEST MOVE DETERMINED: ", bestMove[0])
+      //console.log("BEST MOVE INDEX: ", bestMove[1])
+    }
+    if(algorithm == 2)
+    {
+      bestMove = depthFirstSearch(game, depthIn, false);
+      if(bestMove[1] < 0)
+      {
+        //console.log(bestMove[1], possibleMoves[bestMove[1]])
+        game.move(possibleMoves[0])
+      }
+      else
+      {
+        game.move(possibleMoves[bestMove[1]])
+      }
+
+      //console.log(possibleMoves)
+      //console.log("BEST MOVE DETERMINED: ", bestMove[0])
+      //console.log("BEST MOVE INDEX: ", bestMove[1])
+    }
+    return possibleMoves[bestMove[1]]
   }
 
 //Returns board value matrix
@@ -84,6 +102,7 @@ var getPieceValue = function (piece) {
 //i.e. instead of ['Ne6', 'Na6', ...], changes to ['-30', '0', ...]
 var evaluateMoves = function(game, boardValues)
 { 
+  console.log("evaluate");
   var possibleMoves = game.moves();
   var newMoves = []
   var invertDict = {0 : 7, 1:6, 2:5, 3:4, 4:3, 5:2, 6:1, 7:0 }
@@ -121,9 +140,10 @@ var evaluateMoves = function(game, boardValues)
     if(row == null)
       continue;
 
-    // console.log("Board move: ", possibleMoves[i][index], possibleMoves[i][index+1], ", ", "Matrix move: ", column, row, "Corresponding board value: ", boardValues[column][row])
+    //console.log("Board move: ", possibleMoves[i][index], possibleMoves[i][index+1], ", ", "Matrix move: ", column, row, "Corresponding board value: ", boardValues[column][row])
     newMoves.push(boardValues[column][row]);
   }
+  //console.log("newMoves",newMoves);
   return newMoves;
 };
 

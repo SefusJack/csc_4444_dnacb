@@ -25,7 +25,7 @@ function onDrop (source, target) {
   // make random legal move for black
   movemade = move.to
   console.log(movemade)
-  if(algorithm == 0 || algorithm == 1 || algorithm == 2)
+  if(algorithm == 0 || algorithm == 1 || algorithm == 2 || algorithm == 3)
   {
   	makeMove()
   }
@@ -46,8 +46,10 @@ function makeMove(){
 	console.log(possibleMoves)
 	if(algorithm == 0)
 		game.move(getRandomMove(boardPosition, possibleMoves))
-	else if(algorithm == 1 || algorithm == 2)
+	else if(algorithm == 1 || algorithm == 2)  
 		game.move(getMinimaxMove(boardPosition, possibleMoves))
+	else if(algorithm == 3)
+		game.move(getAlphaBetaPruningMove(boardPosition, possibleMoves))
 
 	board.position(game.fen())
 }
