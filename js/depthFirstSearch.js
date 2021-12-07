@@ -21,7 +21,7 @@ var getMin = function(arrayC)
 }
 
 var depthFirstSearch = function(game, depth, isMaximizingPlayer)
-  {
+{
     //boardPosition = game.fen() which returns a new board  
     var possibleMoves = game.moves();
     var boardValues = [[0, 0, 0, 0, 0, 0, 0, 0], 
@@ -130,4 +130,4 @@ var depthFirstSearch = function(game, depth, isMaximizingPlayer)
         //console.log("bestmove", bestMove);
         return bestMove;
     }
-  }
+}
