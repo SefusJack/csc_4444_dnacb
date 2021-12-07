@@ -59,12 +59,12 @@ var depthFirstSearch = function(game, depth, isMaximizingPlayer)
           //Iterate to the next move
           game.move(possibleMoves[i]);
           //Search node i in possiblemoves
-          console.log("setting player to false");
+          //console.log("setting player to false");
           bestMovesArray.push(depthFirstSearch(game, depth - 1, false));
           //undo the move to maintain the board state and move onto the next move
           game.undo();
       }
-      console.log("best max moves array: ", bestMovesArray);
+      //console.log("best max moves array: ", bestMovesArray);
       for(var i = 0; i < possibleMoves.length; i++)
       {
         if(bestMovesArray[i][0] > bestMove[0])
@@ -73,7 +73,7 @@ var depthFirstSearch = function(game, depth, isMaximizingPlayer)
           bestMove[1] = i;
         }
       }
-        console.log("best max move: ", bestMove);
+        //console.log("best max move: ", bestMove);
         //console.log("Best maximized move depth ", depth, ": ", bestMove);
         return bestMove;
     }
@@ -101,19 +101,33 @@ var depthFirstSearch = function(game, depth, isMaximizingPlayer)
           bestMovesArray.push(depthFirstSearch(game, depth - 1, true));
           game.undo();
       }
+      var bestofthebest = [];
       console.log("best min moves array: ", bestMovesArray);
       for(var i = 0; i < possibleMoves.length; i++)
       {
         if(bestMovesArray[i][0] > bestMove[0])
         {
+          bestofthebest = [];
+          bestofthebest.push([bestMovesArray[i][0],i])
           bestMove[0] = bestMovesArray[i][0];
           bestMove[1] = i;
+          console.log(i)
+        }
+        else if(bestMovesArray[i][0] == bestMove[0])
+        {
+          bestofthebest.push([bestMovesArray[i][0],i])
         }
         //console.log("best move overwritten: ", bestMove);
       }
-        console.log("best min move: ", bestMove);
+      console.log(bestofthebest)
+      if(bestofthebest.length > 0)
+      {
+        var randombest = Math.floor(Math.random() * bestofthebest.length)
+        bestMove = bestofthebest[randombest]
+      }
+        //console.log("possibleMoves ", possibleMoves);
+        //console.log("game = ", game.pgn());
+        //console.log("bestmove", bestMove);
         return bestMove;
     }
   }
-
-

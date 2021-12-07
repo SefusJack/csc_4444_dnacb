@@ -5,13 +5,45 @@
         <link rel="stylesheet" href="chessboard/css/chessboard-1.0.0.min.css">
     </head>
         <body>
-            <div id="myBoard" style="width: 400px"></div>
+            <div id="myBoard" style="width: 500px;"></div>
+                <br>
+                <label >Choose an algorithm:</label>
+                <select name="algorithm" id="algorithm" onchange="setAlgorithm()">
+                  <option value="0">Random</option>
+                  <option value="1">Minimax - Breadth First Search</option>
+                  <option value="2">Minimax - Depth First Search</option>
+                  <option value="3">Machine Learning</option>
+                </select>
+                <br><br>
+                <label >Choose a depth:</label>
+                <select name="depth" id="depth" onchange="setDepth()">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+                <br><br>
             <script src="jquery/jquery-3.6.0.min.js"></script>
             <script src="chessboard/js/chessboard-1.0.0.min.js"></script>
             <script src="chess/chess.js"></script>
             <script src="js/main.js"></script>
             <script src="js/depthFirstSearch.js"></script>
+            <script src="js/breadthFirstSearch.js"></script>
             <script src="js/random.js"></script>
             <script src="js/minimax.js"></script>
+            <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+            <script src="js/ml.js"></script>
+        <script>
+            var algorithm = document.getElementById("algorithm").value;
+            var depthIn = document.getElementById("depth").value;
+            function setDepth()
+            {
+                depthIn = document.getElementById("depth").value;
+            }
+            function setAlgorithm()
+            {
+                algorithm = document.getElementById("algorithm").value;
+            }
+        </script>
         </body>
 </html>
