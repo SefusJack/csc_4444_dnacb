@@ -84,7 +84,7 @@ var breadthFirstSearch = function(game, depth, isMaximizingPlayer)
         bestMove = bestofthebest[randombest]
       }
     }
-    console.log("DFS decided: " + possibleMoves[bestMove[1]] + " was the best move")
+    console.log("BFS decided: " + possibleMoves[bestMove[1]] + " was the best move")
     game = new Chess(originalFen);
     return bestMove;
   }
