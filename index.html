@@ -12,17 +12,18 @@
                   <option value="0">Random</option>
                   <option value="1">Minimax - Breadth First Search</option>
                   <option value="2">Minimax - Depth First Search</option>
-                  <option value="3">Alpha Beta Pruning</option>
-                  <option value="4">Machine Learning</option>
+                  <option value="3">Machine Learning</option>
                 </select>
                 <br><br>
+                <div id="depth-ui" style="display:inline;">
                 <label >Choose a depth:</label>
-                <select name="depth" id="depth" onchange="setDepth()">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                </select>
+                    <select name="depth" id="depth" onchange="setDepth()">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                </div>
                 <br><br>
             <script src="jquery/jquery-3.6.0.min.js"></script>
             <script src="chessboard/js/chessboard-1.0.0.min.js"></script>
@@ -34,10 +35,17 @@
             <script src="js/minimax.js"></script>
             <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
             <script src="js/ml.js"></script>
-            <script src="js/alphabetapruning.js"></script>
         <script>
             var algorithm = document.getElementById("algorithm").value;
             var depthIn = document.getElementById("depth").value;
+            if(algorithm == "0" || algorithm == "1" || algorithm == "3")
+            {
+                document.getElementById("depth-ui").style.display = "none"
+            }
+            else
+            {
+                document.getElementById("depth-ui").style.display = "inline"
+            }
             function setDepth()
             {
                 depthIn = document.getElementById("depth").value;
@@ -45,6 +53,14 @@
             function setAlgorithm()
             {
                 algorithm = document.getElementById("algorithm").value;
+                if(algorithm == "0" || algorithm == "1" || algorithm == "3")
+                {
+                    document.getElementById("depth-ui").style.display = "none"
+                }
+                else
+                {
+                    document.getElementById("depth-ui").style.display = "inline"
+                }
             }
         </script>
         </body>

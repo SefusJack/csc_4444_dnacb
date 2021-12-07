@@ -64,12 +64,25 @@ var breadthFirstSearch = function(game, depth, isMaximizingPlayer)
       bestMovesArray.push([getMax(valueMoves), 0]);
       game = new Chess();
     }
+    var bestofthebest = [];
     for(var i = 0; i < possibleMoves.length; i++)
     {
       if(bestMovesArray[i][0] > bestMove[0])
       {
+        bestofthebest = [];
+        bestofthebest.push([bestMovesArray[i][0],i])
         bestMove[0] = bestMovesArray[i][0];
         bestMove[1] = i;
+        console.log(i)
+      }
+      else if(bestMovesArray[i][0] == bestMove[0])
+      {
+        bestofthebest.push([bestMovesArray[i][0],i])
+      }
+      if(bestofthebest.length > 0)
+      {
+        var randombest = Math.floor(Math.random() * bestofthebest.length)
+        bestMove = bestofthebest[randombest]
       }
     }
     game = new Chess(originalFen);
