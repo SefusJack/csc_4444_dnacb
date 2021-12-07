@@ -19,6 +19,7 @@ function finishedLoading(){
     console.log("Done Loading...")
 }
 
+loadData("")
 // Step 4: add data to the neural network
 function trainBot(_data)
 {
