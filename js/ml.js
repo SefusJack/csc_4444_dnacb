@@ -71,7 +71,6 @@ async function getMLMove(boardPosition, possibleMoves, prevmove)
 {
     var game = new Chess(boardPosition)
     var arr = []
-    console.log(possibleMoves)
     for(var i = 0; i < possibleMoves.length; i++)
     {
         game = new Chess(boardPosition)
@@ -91,6 +90,7 @@ async function getMLMove(boardPosition, possibleMoves, prevmove)
     bestMove = getBestMove(arr)
     if(bestMove != null)
     {
+        console.log("The ML bot had the most confidence in: " + possibleMoves[bestMove])
         return possibleMoves[bestMove]
     }
     else

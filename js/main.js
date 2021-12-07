@@ -5,6 +5,8 @@ var game = new Chess()
 
 var movemade = null
 
+var evaluations = 0
+
 function onDragStart (source, piece, position, orientation) {
   // do not pick up pieces if the game is over
   if (game.game_over()) return false
@@ -24,7 +26,8 @@ function onDrop (source, target) {
   if (move === null) return 'snapback'
   // make random legal move for black
   movemade = move.to
-  console.log(movemade)
+  console.log("Move that was made: " + movemade)
+  evaluations = 0
   if(algorithm == 0 || algorithm == 1 || algorithm == 2)
   {
   	makeMove()
@@ -33,12 +36,12 @@ function onDrop (source, target) {
   {
 	makeMLMove()
   }
+  document.getElementById("evaluations").innerHTML = evaluations;
 }
 
 function makeMove(){
 	var possibleMoves = game.moves()
 	var boardPosition = game.fen()
-	console.log(boardPosition)
 	//game over
 	if(possibleMoves.length === 0)
 		return
@@ -59,6 +62,8 @@ async function makeMLMove()
 	//game over
 	if(possibleMoves.length === 0)
 		return
+  evaluations = possibleMoves.length
+  console.log(possibleMoves)
 	test = await getMLMove(boardPosition, possibleMoves, movemade)
 	//
 	game.move(test)

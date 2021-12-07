@@ -111,7 +111,6 @@ var depthFirstSearch = function(game, depth, isMaximizingPlayer)
           bestofthebest.push([bestMovesArray[i][0],i])
           bestMove[0] = bestMovesArray[i][0];
           bestMove[1] = i;
-          console.log(i)
         }
         else if(bestMovesArray[i][0] == bestMove[0])
         {
@@ -119,11 +118,15 @@ var depthFirstSearch = function(game, depth, isMaximizingPlayer)
         }
         //console.log("best move overwritten: ", bestMove);
       }
-      console.log(bestofthebest)
-      if(bestofthebest.length > 0)
+      if(bestofthebest.length > 1)
       {
         var randombest = Math.floor(Math.random() * bestofthebest.length)
         bestMove = bestofthebest[randombest]
+        console.log("DFS decided: " + possibleMoves[bestMove[1]] + " was a pretty good move")
+      }
+      else
+      {
+        console.log("DFS decided: " + possibleMoves[bestMove[1]] + " was the best move")
       }
         //console.log("possibleMoves ", possibleMoves);
         //console.log("game = ", game.pgn());
